@@ -1,8 +1,6 @@
 import json
 from server.models import *
 
-# user mappings
-
 def user_to_dict(user):
 	if user:
 		result_dict = {}
@@ -20,11 +18,24 @@ def drop_to_dict(drop):
 	if drop:
 		result_dict = {}
 		for property in Drop.__table__.columns:
-			result_dict[str(property.key)] = getattr(user, str(property.key))
-		return { 'user' : result_dict }
+			result_dict[str(property.key)] = getattr(drop, str(property.key))
+		return { 'drop' : result_dict }
 	return {}
 
 def dict_to_drop(payload, drop):
 	for property in Drop.__table__.columns:
 		if str(property.key) != 'id':
-			str(property.key) in payload and setattr(user, str(property.key), payload[str(property.key)])
+			str(property.key) in payload and setattr(drop, str(property.key), payload[str(property.key)])
+
+def pickup_to_dict(pickup):
+	if pickup:
+		result_dict = {}
+		for property in Pickup.__table__.columns:
+			result_dict[str(property.key)] = getattr(pickup, str(property.key))
+		return { 'pickup' : result_dict }
+	return {}
+
+def dict_to_pickup(payload, pickup):
+	for property in Pickup.__table__.columns:
+		if str(property.key) != 'id':
+			str(property.key) in payload and setattr(pickup, str(property.key), payload[str(property.key)])

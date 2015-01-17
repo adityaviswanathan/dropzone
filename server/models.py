@@ -3,6 +3,7 @@ from server.db import db
 from sqlalchemy import ForeignKey, Enum
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
+from geoalchemy2 import Geography
 import datetime
 
 # Base = declarative_base()
@@ -29,7 +30,7 @@ class User(Base):
     email = db.Column(db.Text)
     photo = db.Column(db.Text)
     drops = relationship('Drop', backref='users')
-    # founds = relationship('Drop')
+    pickups = relationship('Pickup', backref='users')
 
     @staticmethod
     def query_by_user_id(user_id):
@@ -50,6 +51,37 @@ class Drop(Base):
     numviews = db.Column(db.Integer)
     restrictions = db.Column(db.Enum('self', 'friends', 'public', name='restriction_types'))
     viewcap = db.Column(db.Integer)
-    # finders = relationship('User')
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
     teaser = db.Column(db.Text)
+    location = db.Column(Geography(geometry_type='POINT', srid=0))
+
+    @staticmethod
+    def query_by_drop_id(drop_id):
+        if drop_id is None:
+            return None
+        return Drop.query.filter_by(id=drop_id).first()
+
+class Pickup(Base):
+    __tablename__ = 'pickups'
+    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+    drop_id = db.Column(db.Integer, ForeignKey('drops.id'))
+
+    @staticmethod
+    def query_by_pickup_id(pickup_id):
+        if pickup_id is None:
+            return None
+        return Pickup.query.filter_by(id=pickup_id).first()
+
+    # returns list
+    @staticmethod
+    def query_by_drop_id(drop_id):
+        if drop_id is None:
+            return None
+        return Pickup.query.filter_by(drop_id=drop_id)
+
+    # returns list
+    @staticmethod
+    def query_by_user_id(user_id):
+        if user_id is None:
+            return None
+        return Pickup.query.filter_by(user_id=user_id)
