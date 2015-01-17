@@ -3,7 +3,8 @@ from server.db import db
 from sqlalchemy import ForeignKey, Enum
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
-from geoalchemy2 import Geography
+from geoalchemy2 import Geometry
+from geoalchemy2.functions import ST_Distance
 import datetime
 
 # Base = declarative_base()
@@ -44,6 +45,17 @@ class User(Base):
             return None
         return User.query.filter_by(email=email).first()
 
+    # returns list
+    @staticmethod
+    def get_nearby_drops(lat, lng):
+        drops = Drop.query.all()
+        nearby_drops = []
+        for drop in drops:
+            if(ST_Distance(drop.location, db.engine.execute('ST_GeomFromText("POINT({0} {1})")'.format(lat, lng))) < 100):
+                nearby_drops.append(drop)
+        return nearby_drops
+
+
 class Drop(Base):
     __tablename__ = 'drops'
     data_type = db.Column(db.Enum('text','photo','video', name='data_types'))
@@ -53,7 +65,10 @@ class Drop(Base):
     viewcap = db.Column(db.Integer)
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
     teaser = db.Column(db.Text)
-    location = db.Column(Geography(geometry_type='POINT', srid=0))
+    location = db.Column(Geometry(geometry_type='POINT'))
+
+    def set_location(self, lat, lng):
+        self.location = db.engine.execute('ST_MakePoint("{0} {1}")'.format(lat, lng))
 
     @staticmethod
     def query_by_drop_id(drop_id):

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE3BD87D1A6AC13100937005 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3BD87C1A6AC13100937005 /* LoginViewController.swift */; };
+		BE3BD87F1A6AC7EE00937005 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE3BD87E1A6AC7EE00937005 /* LoginView.xib */; };
 		BEE344B91A6A6828007F5900 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE344B81A6A6828007F5900 /* AppDelegate.swift */; };
 		BEE344BB1A6A6828007F5900 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE344BA1A6A6828007F5900 /* FirstViewController.swift */; };
 		BEE344BD1A6A6828007F5900 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE344BC1A6A6828007F5900 /* SecondViewController.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE3BD87C1A6AC13100937005 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BE3BD87E1A6AC7EE00937005 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		BEE344B31A6A6828007F5900 /* dropzone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dropzone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEE344B71A6A6828007F5900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEE344B81A6A6828007F5900 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,7 +85,9 @@
 			children = (
 				BEE344B81A6A6828007F5900 /* AppDelegate.swift */,
 				BEE344BA1A6A6828007F5900 /* FirstViewController.swift */,
+				BE3BD87C1A6AC13100937005 /* LoginViewController.swift */,
 				BEE344BC1A6A6828007F5900 /* SecondViewController.swift */,
+				BE3BD87E1A6AC7EE00937005 /* LoginView.xib */,
 				BEE344BE1A6A6828007F5900 /* Main.storyboard */,
 				BEE344C11A6A6828007F5900 /* Images.xcassets */,
 				BEE344C31A6A6828007F5900 /* LaunchScreen.xib */,
@@ -197,6 +203,7 @@
 			files = (
 				BEE344C01A6A6828007F5900 /* Main.storyboard in Resources */,
 				BEE344C51A6A6828007F5900 /* LaunchScreen.xib in Resources */,
+				BE3BD87F1A6AC7EE00937005 /* LoginView.xib in Resources */,
 				BEE344C21A6A6828007F5900 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3BD87D1A6AC13100937005 /* LoginViewController.swift in Sources */,
 				BEE344BD1A6A6828007F5900 /* SecondViewController.swift in Sources */,
 				BEE344B91A6A6828007F5900 /* AppDelegate.swift in Sources */,
 				BEE344BB1A6A6828007F5900 /* FirstViewController.swift in Sources */,
@@ -409,6 +417,7 @@
 				BEE344D61A6A6828007F5900 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BEE344D71A6A6828007F5900 /* Build configuration list for PBXNativeTarget "dropzoneTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +426,7 @@
 				BEE344D91A6A6828007F5900 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
