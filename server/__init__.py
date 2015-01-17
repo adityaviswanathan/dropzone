@@ -6,9 +6,9 @@ print "In __init__"
 
 app = Flask(__name__, static_folder='../client/static', template_folder='../client/views')
 
-onHeroku = int(os.environ.get('HEROKU', 0)) != 0
+on_heroku = int(os.environ.get('HEROKU', 0)) != 0
 
-if onHeroku:
+if on_heroku:
 	print "On Heroku"
 	os.environ['APP_SETTINGS'] = 'server.config.ProductionConfig'
 else:
