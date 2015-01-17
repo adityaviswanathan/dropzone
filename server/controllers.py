@@ -5,13 +5,12 @@ from server.models import *
 from server import mapper
 from pprint import pprint
 
-print "in controllers"
+print "In controllers"
 
 @app.route('/<path:path>')
 @app.route('/')
 def index(path=None):
-    return "Hello world!"
-    # return render_template('index.html', name="dropzone")
+    return render_template('index.html', name="dropzone")
 
 @app.route('/facebook/login', methods=['GET'])
 def facebook_login():
