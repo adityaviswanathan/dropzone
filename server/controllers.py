@@ -5,6 +5,8 @@ from server.models import *
 from server import mapper
 from pprint import pprint
 
+print "in controllers"
+
 @app.route('/<path:path>')
 @app.route('/')
 def index(path=None):
