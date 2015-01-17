@@ -8,7 +8,8 @@ from pprint import pprint
 @app.route('/<path:path>')
 @app.route('/')
 def index(path=None):
-    return render_template('index.html', name="dropzone")
+    return "Hello world!"
+    # return render_template('index.html', name="dropzone")
 
 @app.route('/facebook/login', methods=['GET'])
 def facebook_login():
