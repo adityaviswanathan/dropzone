@@ -66,3 +66,10 @@ def delete_user(user_id):
 	user.delete()
 	db.session.commit()
 	return 'user deleted\n'
+
+@app.route('/api/drop/<int:drop_id>', methods=['GET']):
+def get_drop(drop_id):
+	drop = Drop.query_by_drop_id(drop_id)
+	if drop is None:
+		abort(404)
+	return jsonify(mapper.drop_to_dict(drop))
