@@ -1,4 +1,4 @@
-from flask import g, render_template, url_for, flash, redirect, request, jsonify
+from flask import g, render_template, url_for, flash, redirect, request
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from server.login import facebook
 from server.models import *
@@ -33,7 +33,7 @@ def facebook_authorized():
     payload = { 'name' : me['name'],
                 'email' : me['email'],
                 'photo' : 'https://graph.facebook.com/' + me['id'] + '/picture' }
-
+           
     user = User.query_by_email(payload['email'])
     if user is None:
         user = User()

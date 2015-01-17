@@ -5,36 +5,6 @@ import json
 
 # user API
 
-@app.route('/api/user/login', methods=['POST'])
-def login_user():
-	payload = json.loads(request.data)
-	user = User.query_by_email(payload['email'])
-	if user is None:
-		abort(404)
-	if user.verify_password(payload['password']):
-		return jsonify(mapper.user_to_dict(user))
-	abort(401)
-	return 'invalid credentials\n' # need to return identifier (id)
-
-# NOT NEEDED IF ONLY FB LOGIN, WILL REMOVE SOON
-@app.route('/api/user', methods=['POST'])
-def create_user():
-	# payload = request.form
-	# if(request.type == json):
-	# need to return err to client if user exists (based on email)
-	# need to associate password with email (if already signed in via fb)?
-	
-	# BEHAVIOR: returns user found by supplied email or creates and returns new user
-
-	payload = json.loads(request.data)
-	user = User.query_by_email(payload['email'])
-	if user is None:
-		user = User.create_native(payload)
-	mapper.dict_to_user(payload, user)
-	# user.save()
-	# db.session.commit()
-	return jsonify(mapper.user_to_dict(user)['user'])
-
 @app.route('/api/user/<int:user_id>', methods=['GET'])
 def read_user(user_id):
 	user = User.query_by_user_id(user_id)
@@ -44,8 +14,6 @@ def read_user(user_id):
 
 @app.route('/api/user/<int:user_id>', methods=['PUT'])
 def update_user(user_id):	
-	# payload = request.form
-	# if(request.type == json):
 	payload = json.loads(request.data)
 	user = User.query_by_user_id(user_id)
 	if user is None:
@@ -57,15 +25,21 @@ def update_user(user_id):
 
 @app.route('/api/user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-	# payload = request.form
-	# if(request.type == json):
-	# payload = json.loads(request.data)
 	user = User.query_by_user_id(user_id)
 	if user is None:
 		abort(404)
 	user.delete()
 	db.session.commit()
-	return 'user deleted\n'
+	return user_id
+
+@app.route('/api/drop', methods=['POST'])
+def create_drop():
+	payload = json.loads(request.data)
+	drop = Drop()
+	mapper.dict_to_drop(payload, drop)
+	drop.save()
+	db.session.commit()
+	return jsonify(mapper.drop_to_dict(drop)) 
 
 @app.route('/api/drop/<int:drop_id>', methods=['GET'])
 def get_drop(drop_id):
@@ -73,3 +47,59 @@ def get_drop(drop_id):
 	if drop is None:
 		abort(404)
 	return jsonify(mapper.drop_to_dict(drop))
+
+@app.route('/api/drop/<int:drop_id>', methods=['PUT'])
+def update_drop(drop_id):
+	payload = json.loads(request.data)
+	drop = Drop.query_by_drop_id(drop_id)
+	if drop is None:
+		abort(404)
+	mapper.dict_to_drop(payload, drop)
+	drop.save()
+	db.session.commit()
+	return jsonify(mapper.drop_to_dict(drop))
+
+@app.route('/api/drop/<int:drop_id>', methods=['DELETE'])
+def delete_drop(drop_id):
+	drop = Drop.query_by_drop_id(drop_id)
+	if drop is None:
+		abort(404)
+	drop.delete()
+	db.session.commit()
+	return drop_id
+
+@app.route('/api/pickup', methods=['POST'])
+def create_pickup():
+	payload = json.loads(request.data)
+	pickup = Pickup()
+	mapper.dict_to_pickup(payload, pickup)
+	pickup.save()
+	db.session.commit()
+	return jsonify(mapper.pickup_to_dict(pickup))	
+
+@app.route('/api/pickup/<int:pickup_id>', methods=['GET'])
+def get_pickup(pickup_id):
+	pickup = Pickup.query_by_pickup_id(pickup_id)
+	if pickup is None:
+		abort(404)
+	return jsonify(mapper.pickup_to_dict(pickup))
+
+@app.route('/api/pickup/<int:pickup_id>', methods=['PUT'])
+def update_pickup(pickup_id):
+	payload = json.loads(request.data)
+	pickup = Pickup.query_by_pickup_id(pickup_id)
+	if pickup is None:
+		abort(404)
+	mapper.dict_to_pickup(payload, pickup)
+	pickup.save()
+	db.session.commit()
+	return jsonify(mapper.pickup_to_dict(pickup))
+
+@app.route('/api/pickup/<int:pickup_id>', methods=['DELETE'])
+def delete_pickup(pickup_id):
+	pickup = Pickup.query_by_pickup_id(pickup_id)
+	if pickup is None:
+		abort(404)
+	pickup.delete()
+	db.session.commit()
+	return pickup_id
