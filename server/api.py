@@ -22,7 +22,7 @@ def read_user(user_id):
 	return jsonify(mapper.user_to_dict(user))
 
 @app.route('/api/user/<int:user_id>', methods=['PUT'])
-def update_user(user_id):	
+def update_user(user_id):
 	payload = json.loads(request.data)
 	user = User.query_by_user_id(user_id)
 	if user is None:
