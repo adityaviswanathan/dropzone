@@ -68,7 +68,8 @@ class Drop(Base):
     location = db.Column(Geometry(geometry_type='POINT'))
 
     def set_location(self, lat, lng):
-        self.location = db.engine.execute('ST_MakePoint("{0} {1}")'.format(lat, lng))
+        result = db.engine.execute("SELECT ST_AsText(ST_MakePoint({0}, {1}));".format(lat, lng))
+        self.location = result.first()[0]
 
     @staticmethod
     def query_by_drop_id(drop_id):

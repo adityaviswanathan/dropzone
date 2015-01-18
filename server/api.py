@@ -48,7 +48,7 @@ def create_drop():
 	mapper.dict_to_drop(payload, drop)
 	drop.save()
 	db.session.commit()
-	return jsonify(mapper.drop_to_dict(drop)) 
+	return jsonify(mapper.drop_to_dict(drop))
 
 @app.route('/api/drop/<int:drop_id>', methods=['GET'])
 def get_drop(drop_id):
