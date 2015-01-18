@@ -56,6 +56,8 @@ class User(Base):
         for drop in drops:
             print "F04"
             # In meters
+            if drop.lat is None or drop.lng is None:
+                continue
             distance = User.haversine(radians(lat), radians(lng), radians(drop.lat), radians(drop.lng))
             print "F05"
             print distance
