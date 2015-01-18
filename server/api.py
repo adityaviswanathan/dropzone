@@ -14,6 +14,15 @@ def read_nearby_drops(user_id):
 	drops = User.get_nearby_drops(payload['lat'], payload['lng'])
 	return jsonify(mapper.drops_to_dict(drops))
 
+@app.route('/api/user', methods=['POST'])
+def create_user():
+	payload = json.loads(request.data)
+	user = User()
+	mapper.dict_to_drop(payload, user)
+	user.save()
+	db.session.commit()
+	return jsonify(mapper.user_to_dict(user)) 
+
 @app.route('/api/user/<int:user_id>', methods=['GET'])
 def read_user(user_id):
 	user = User.query_by_user_id(user_id)
