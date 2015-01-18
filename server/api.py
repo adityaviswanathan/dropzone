@@ -60,30 +60,16 @@ def delete_user(user_id):
 
 @app.route('/api/drop', methods=['POST'])
 def create_drop():
-    print 'THIS IS THE PAYLOAD\n'
-    # print request.form
     payload = json.loads(request.data)
     print payload
-    # print request.form.getlist('viewcap')
-    # payload = {
-    #     'viewcap' : (int)request.form.getlist('viewcap')[0],
-    #     'restrictions' : request.form.getlist('restrictions')[0],
-    #     'data_type' : request.form.getlist('data_type')[0],
-    #     'lat' : (float)(request.form.getlist('lat')[0]),
-    #     'lng' : (float)(request.form.getlist('lng')[0]),
-    #     'teaser' : request.form.getlist('teaser')[0],
-    #     'data_payload' : request.form.getlist('data_payload')[0],
-    #     'user_id' : (int)(request.form.getlist('user_id')[0])
-    # }
-    # for property in request.form.getlist:
-    #     payload[str(property.key)] = property.first()
-    # # payload = json.loads(request.form)
-    # print 'THIS IS THE PAYLOAD\n'
-    # print payload
     drop = Drop()
+    print 'I CREATE A DROP'
     mapper.dict_to_drop(payload, drop)
+    print 'I UPDATE A DROP'
     drop.save()
+    print 'I SAVE A DROP'
     db.session.commit()
+    print 'I COMMIT A DROP'
     return jsonify(mapper.drop_to_dict(drop))
 
 def payment_transfer(user_1, user_2, amount):
