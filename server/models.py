@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey, Enum
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
-import math
+from math import sin, cos, sqrt, atan2, radians
 
 # Base = declarative_base()
 
@@ -50,14 +50,24 @@ class User(Base):
         drops = Drop.query.all()
         nearby_drops = []
         for drop in drops:
-            dlat = lat - drop.lat
-            dlng = lng - drop.lng
-            distance = math.sqrt(dlat * dlat + dlng * dlng)
+            # In meters
+            distance = User.haversine(radians(lat), radians(lng), radians(drop.lat), radians(drop.lng))
             print distance
-            if distance < 1.0:
+            if distance < 500.0:
                 print "yay"
                 nearby_drops.append(drop)
+            else:
+                print "no"
         return nearby_drops
+
+    @staticmethod
+    def haversine(lat1, lng1, lat2, lng2):
+        R = 6378100.0 # Meters
+        dlon = lng2 - lng1
+        dlat = lat2 - lat1
+        a = (sin(dlat/2))**2 + cos(lat1) * cos(lat2) * (sin(dlon/2))**2
+        c = 2 * atan2(sqrt(a), sqrt(1-a))
+        return R * c
 
 
 class Drop(Base):

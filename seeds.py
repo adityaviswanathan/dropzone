@@ -32,8 +32,8 @@ data = {
 	'viewcap': 25,
 	'user_id': 1,
 	'teaser': 'some teaser here',
-	'lat': 138.5,
-	'lng': 37.5
+	'lat': 139,
+	'lng': 38
 }
 d = Drop()
 mapper.dict_to_drop(data, d)
@@ -43,4 +43,4 @@ db.session.commit()
 
 print mapper.drop_to_dict(d)
 
-print u1.get_nearby_drops(138.5, 37.5)
+print u1.get_nearby_drops(138.50012, 37.495)
