@@ -61,8 +61,16 @@ def create_drop():
 	db.session.commit()
 	return jsonify(mapper.drop_to_dict(drop))
 
+def payment_transfer(user_1, user_2, amount):
+	user_1 -= int(amount)
+	user_2 += int(amount)
+	user_1.save()
+	user_2.save()
+
 def consume_drop(user_id, drop):
-	drop.numviews+=1
+	if drop.data_type == 'payment':
+		payment_transfer(drop.user_id, user_id, drop.data_payload)
+	drop.numviews += 1
 	pickup = Pickup()
 	payload = {
 		'user_id' : user_id,
@@ -72,16 +80,13 @@ def consume_drop(user_id, drop):
 	pickup.save()
 	drop.save()
 
-@app.route('/api/drop/<int:drop_id>', methods=['GET'])
-def read_drop(drop_id):
+@app.route('/api/drop/<int:drop_id>/<int:user_id>', methods=['GET'])
+def read_drop(drop_id=None, user_id=None):
 	drop = Drop.query_by_drop_id(drop_id)
 	if drop is None:
 		abort(404)
-	if drop.viewcap == drop.numviews:
-		return {}
-	if request.args.get('user_id') is None:
+	if user_id is None:
 		abort(404)
-	user_id = request.args.get('user_id')
 	consume_drop(user_id, drop)	
 	db.session.commit()
 	return jsonify(mapper.drop_to_dict(drop))

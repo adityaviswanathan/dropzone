@@ -31,6 +31,7 @@ class User(Base):
     photo = db.Column(db.Text)
     drops = relationship('Drop', backref='users')
     pickups = relationship('Pickup', backref='users')
+    balance = db.Column(db.Integer, default=0)
 
     @staticmethod
     def query_by_user_id(user_id):
@@ -53,7 +54,7 @@ class User(Base):
             # In meters
             distance = User.haversine(radians(lat), radians(lng), radians(drop.lat), radians(drop.lng))
             print distance
-            if distance < 500.0 and drop.numviews != drop.viewcap:
+            if distance < 500.0 and drop.numviews < drop.viewcap:
                 print "yay"
                 nearby_drops.append(drop)
             else:
@@ -72,7 +73,7 @@ class User(Base):
 
 class Drop(Base):
     __tablename__ = 'drops'
-    data_type = db.Column(db.Enum('text','photo','video', name='data_types'))
+    data_type = db.Column(db.Enum('text','photo','video','payment', name='data_types'))
     data_payload = db.Column(db.Text)
     numviews = db.Column(db.Integer, default=0)
     restrictions = db.Column(db.Enum('self', 'friends', 'public', name='restriction_types'))
