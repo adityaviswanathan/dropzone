@@ -2,17 +2,17 @@ from server import mapper
 from server.models import *
 from flask import render_template, jsonify, request, redirect, url_for, abort
 import json
+from pprint import pprint
 
 # user API
 
 @app.route('/api/user/<int:user_id>/nearby', methods=['GET'])
 def read_nearby_drops(user_id):
     user = User.query_by_user_id(user_id)
-    payload = json.loads(request.data)
     if user is None:
         abort(404)
-    lat = request.args.get('lat')
-    lng = request.args.get('lng')
+    lat = (float)(request.args.get('lat'))
+    lng = (float)(request.args.get('lng'))
     if lat is None:
         abort(404)    
     if lng is None:
@@ -60,9 +60,16 @@ def delete_user(user_id):
 
 @app.route('/api/drop', methods=['POST'])
 def create_drop():
-    payload = json.loads(request.data)
-    print 'THIS IS THE PAYLOAD\n'
-    print payload
+    payload = {
+        'viewcap' : request.form.getlist('viewcap')[0],
+        'restrictions' : request.form.getlist('restrictions')[0],
+        'data_type' : request.form.getlist('data_type')[0],
+        'lat' : (float)(request.form.getlist('lat')[0]),
+        'lng' : (float)(request.form.getlist('lng')[0]),
+        'teaser' : request.form.getlist('teaser')[0],
+        'data_payload' : request.form.getlist('data_payload')[0],
+        'user_id' : (int)(request.form.getlist('user_id')[0])
+    }
     drop = Drop()
     mapper.dict_to_drop(payload, drop)
     drop.save()
