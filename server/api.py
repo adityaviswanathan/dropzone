@@ -61,15 +61,15 @@ def delete_user(user_id):
 @app.route('/api/drop', methods=['POST'])
 def create_drop():
     payload = json.loads(request.data)
-    print payload
+    # print payload
     drop = Drop()
-    print 'I CREATE A DROP'
+    # print 'I CREATE A DROP'
     mapper.dict_to_drop(payload, drop)
-    print 'I UPDATE A DROP'
+    # print 'I UPDATE A DROP'
     drop.save()
-    print 'I SAVE A DROP'
+    # print 'I SAVE A DROP'
     db.session.commit()
-    print 'I COMMIT A DROP'
+    # print 'I COMMIT A DROP'
     return jsonify(mapper.drop_to_dict(drop))
 
 def payment_transfer(user_1, user_2, amount):
