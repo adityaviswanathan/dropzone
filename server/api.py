@@ -62,7 +62,7 @@ def delete_user(user_id):
 def create_drop():
     print 'THIS IS THE PAYLOAD\n'
     print request.form
-    print request.form.getlist('viewcap')
+    # print request.form.getlist('viewcap')
     payload = {
         'viewcap' : (int)request.form.getlist('viewcap')[0],
         'restrictions' : request.form.getlist('restrictions')[0],
