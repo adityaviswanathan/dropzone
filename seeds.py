@@ -2,8 +2,6 @@
 from server.models import *
 from server import mapper
 
-from geoalchemy2 import Geometry
-
 data = {
 	'name':'Sam',
 	'email':'sredmond@stanford.edu',

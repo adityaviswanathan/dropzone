@@ -3,8 +3,6 @@ from server.db import db
 from sqlalchemy import ForeignKey, Enum
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
-from geoalchemy2 import Geometry
-from geoalchemy2.functions import ST_Distance
 import datetime
 import math
 
@@ -22,9 +20,9 @@ class Base(db.Model):
 
     def delete(self):
         db.session.delete(self)
-    
+
     def __repr__(self): # return format when queried
-        return '<%s %d>' % (self.__class__.__name__, self.id)    
+        return '<%s %d>' % (self.__class__.__name__, self.id)
 
 class User(Base):
     __tablename__ = 'users'
@@ -55,7 +53,6 @@ class User(Base):
             dlat = lat - drop.lat
             dlng = lng - drop.lng
             distance = math.sqrt(dlat * dlat + dlng * dlng)
-            # distance = db.engine.execute("SELECT ST_Distance(ST_GeomFromText('POINT({0} {1})'), ST_GeomFromText('POINT({2} {3})'));".format(lat, lng, drop.lat, drop.lng)).first()
             print distance
             if distance < 1.0:
                 print "yay"
@@ -74,10 +71,6 @@ class Drop(Base):
     teaser = db.Column(db.Text)
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
-
-    # def set_location(self, lat, lng):
-    #     result = db.engine.execute("SELECT ST_AsText(ST_MakePoint({0}, {1}));".format(lat, lng))
-    #     self.location = result.first()[0]
 
     @staticmethod
     def query_by_drop_id(drop_id):
