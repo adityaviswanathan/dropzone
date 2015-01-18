@@ -61,7 +61,9 @@ def delete_user(user_id):
 @app.route('/api/drop', methods=['POST'])
 def create_drop():
     print 'THIS IS THE PAYLOAD\n'
-    print request.form
+    # print request.form
+    payload = json.loads(request.data)
+    print payload
     # print request.form.getlist('viewcap')
     payload = {
         'viewcap' : (int)request.form.getlist('viewcap')[0],
