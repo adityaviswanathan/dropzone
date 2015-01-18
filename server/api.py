@@ -65,21 +65,21 @@ def create_drop():
     payload = json.loads(request.data)
     print payload
     # print request.form.getlist('viewcap')
-    payload = {
-        'viewcap' : (int)request.form.getlist('viewcap')[0],
-        'restrictions' : request.form.getlist('restrictions')[0],
-        'data_type' : request.form.getlist('data_type')[0],
-        'lat' : (float)(request.form.getlist('lat')[0]),
-        'lng' : (float)(request.form.getlist('lng')[0]),
-        'teaser' : request.form.getlist('teaser')[0],
-        'data_payload' : request.form.getlist('data_payload')[0],
-        'user_id' : (int)(request.form.getlist('user_id')[0])
-    }
+    # payload = {
+    #     'viewcap' : (int)request.form.getlist('viewcap')[0],
+    #     'restrictions' : request.form.getlist('restrictions')[0],
+    #     'data_type' : request.form.getlist('data_type')[0],
+    #     'lat' : (float)(request.form.getlist('lat')[0]),
+    #     'lng' : (float)(request.form.getlist('lng')[0]),
+    #     'teaser' : request.form.getlist('teaser')[0],
+    #     'data_payload' : request.form.getlist('data_payload')[0],
+    #     'user_id' : (int)(request.form.getlist('user_id')[0])
+    # }
     # for property in request.form.getlist:
     #     payload[str(property.key)] = property.first()
     # # payload = json.loads(request.form)
-    print 'THIS IS THE PAYLOAD\n'
-    print payload
+    # print 'THIS IS THE PAYLOAD\n'
+    # print payload
     drop = Drop()
     mapper.dict_to_drop(payload, drop)
     drop.save()
