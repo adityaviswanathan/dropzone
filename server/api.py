@@ -17,6 +17,8 @@ def read_nearby_drops(user_id):
 @app.route('/api/user', methods=['POST'])
 def create_user():
 	payload = json.loads(request.data)
+	print 'THIS IS THE PAYLOAD\n'
+	print payload
 	user = User()
 	mapper.dict_to_drop(payload, user)
 	user.save()
