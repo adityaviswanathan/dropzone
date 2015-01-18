@@ -28,6 +28,10 @@ def drops_to_dict(drops):
 		result_dict = {}
 		for property in Drop.__table__.columns:			
 			result_dict[str(property.key)] = getattr(drop, str(property.key))
+		user = User.query_by_user_id(result_dict['user_id'])
+		if user is not None:
+			result_dict['name'] = user.name
+			result_dict['photo'] = user.photo
 		result_drops.append(result_dict)
 	return { 'drops' : result_drops }
 
