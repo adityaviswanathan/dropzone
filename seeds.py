@@ -18,8 +18,8 @@ data = {
 u2 = User()
 mapper.dict_to_user(data, u2)
 
-u1.save()
-u2.save()
+# u1.save()
+# u2.save()
 # db.session.commit()
 print mapper.user_to_dict(u1)
 print mapper.user_to_dict(u2)
