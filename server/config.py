@@ -1,4 +1,5 @@
 import os
+from server.login import facebook, facebook_dev
 
 class Config(object):
     DEBUG = False
@@ -10,6 +11,7 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'postgres://aklcjsnfxbvrbf:cNoCSeGAX-SvtQUddKYCAkzk11@ec2-50-16-190-77.compute-1.amazonaws.com:5432/dll4ul1cuc1kh'
+    FACEBOOK_AUTH = facebook
 
 class StagingConfig(Config):
     DEVELOPMENT = True
@@ -21,6 +23,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/dropzone'
     SERVER_NAME = 'localhost:5000'
     PREFERRED_URL_SCHEME = 'http'
+    FACEBOOK_AUTH = facebook_dev
 
 class TestingConfig(Config):
     TESTING = True

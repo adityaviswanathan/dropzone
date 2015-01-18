@@ -1,6 +1,6 @@
 from flask import g, render_template, url_for, flash, redirect, request
 from flask.ext.login import login_user, logout_user, current_user, login_required
-from server.login import facebook
+from server.login import facebook, facebook_dev
 from server.models import *
 from server import mapper
 from pprint import pprint
