@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.app.FragmentTabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@android:id/tabhost">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent">
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent">
+        </TabWidget>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_height="0px"
+            android:layout_width="match_parent"
+            android:layout_weight="1">
+        </FrameLayout>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/share_friends"
+                android:layout_width="0px"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="Friends"
+                android:textSize="42dp"
+                />
+            <RadioButton
+                android:id="@+id/share_all"
+                android:layout_width="0px"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Everyone"
+                android:textSize="42dp"
+                />
+            </RadioGroup>
+        <Button
+            android:id="@+id/button_drop"
+            android:text="Drop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</android.support.v4.app.FragmentTabHost>

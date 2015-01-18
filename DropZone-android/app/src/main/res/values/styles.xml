@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/myTheme.ActionBar</item>
+    </style>
+
+    <style name="myTheme.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/background_color</item>
+    </style>
+
+    <color name="background_color">#5fb6d5</color>
+    <!---->
+    <!--<style name="ThemeSelector" parent="@android:style/Theme.Holo.Light">-->
+        <!--<item name="android:actionBarStyle">@style/myTheme.ActionBar</item>-->
+    <!--</style>-->
+
+    <!--<style name="myTheme.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">-->
+        <!--<item name="android:background">@drawable/lblue</item>-->
+        <!--<item name="android:titleTextStyle">@style/myTheme.ActionBar.Text</item>-->
+        <!--<item name="android:height">@dimen/app_head_height</item>-->
+    <!--</style>-->
+
+    <!--<style name="myTheme.ActionBar.Text" parent="@android:style/TextAppearance">-->
+        <!--<item name="android:textColor">@color/white</item>-->
+        <!--<item name="android:textSize">@dimen/app_head</item>-->
+    <!--</style>-->
+</resources>
