@@ -22,8 +22,6 @@ def facebook_login():
     if(os.environ['APP_SETTINGS'] == 'server.config.DevelopmentConfig'):
         return redirect(facebook_dev.get_authorize_url(**params))
 
-    
-
 @app.route('/facebook/authorized')
 def facebook_authorized():
     # check to make sure the user authorized the request

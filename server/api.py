@@ -19,7 +19,9 @@ def create_user():
 	payload = json.loads(request.data)
 	print 'THIS IS THE PAYLOAD\n'
 	print payload
-	user = User()
+	user = User.query_by_email(payload['email'])
+	if user is None:
+        user = User()
 	mapper.dict_to_user(payload, user)
 	user.save()
 	db.session.commit()
