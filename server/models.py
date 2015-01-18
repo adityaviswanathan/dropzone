@@ -48,27 +48,16 @@ class User(Base):
     # returns list
     @staticmethod
     def get_nearby_drops(lat, lng):
-        print "F01"
         drops = Drop.query.all()
-        print "F02"
         nearby_drops = []
-        print "F03"
         for drop in drops:
-            print "F04"
             # In meters
             if drop.lat is None or drop.lng is None:
                 continue
             distance = User.haversine(radians(lat), radians(lng), radians(drop.lat), radians(drop.lng))
-            print "F05"
             print distance
             if distance < 500.0 and drop.numviews < drop.viewcap:
-                print "F06"
-                print "yay"
                 nearby_drops.append(drop)
-                print "F07"
-            else:
-                print "no"
-        print "F08"
         return nearby_drops
 
     @staticmethod
