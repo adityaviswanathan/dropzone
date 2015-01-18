@@ -9,9 +9,9 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = ''
 
 class ProductionConfig(Config):
-    DEBUG = False
-    FACEBOOK_AUTH = facebook
+    DEBUG = False    
     SQLALCHEMY_DATABASE_URI = 'postgres://ucfkdd2nnohmef:p5f86vp1pohq1mbj1of6rh0u3q1@ec2-54-235-171-105.compute-1.amazonaws.com:5702/d3e21gohnca0fi'
+    FACEBOOK_AUTH = facebook
 
 class StagingConfig(Config):
     DEVELOPMENT = True

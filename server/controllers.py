@@ -1,3 +1,4 @@
+import os
 from flask import g, render_template, url_for, flash, redirect, request
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from server.login import facebook, facebook_dev
@@ -16,7 +17,12 @@ def index(path=None):
 def facebook_login():
     redirect_uri = url_for('facebook_authorized', _external=True)
     params = {'redirect_uri': redirect_uri, 'scope': 'email, public_profile'}
-    return redirect(facebook.get_authorize_url(**params))
+    if(os.environ['APP_SETTINGS'] == 'server.config.ProductionConfig'):
+        return redirect(facebook.get_authorize_url(**params))
+    if(os.environ['APP_SETTINGS'] == 'server.config.DevelopmentConfig'):
+        return redirect(facebook_dev.get_authorize_url(**params))
+
+    
 
 @app.route('/facebook/authorized')
 def facebook_authorized():
@@ -28,8 +34,12 @@ def facebook_authorized():
     # make a request for the access token credentials using code
     redirect_uri = url_for('facebook_authorized', _external=True)
     data = dict(code=request.args['code'], redirect_uri=redirect_uri)
-
-    session = facebook.get_auth_session(data=data)
+    session = {}
+    if(os.environ['APP_SETTINGS'] == 'server.config.ProductionConfig'):
+        session = facebook.get_auth_session(data=data)
+    if(os.environ['APP_SETTINGS'] == 'server.config.DevelopmentConfig'):
+        session = facebook_dev.get_auth_session(data=data)
+    
     me = session.get('me').json()
     pprint(me)
     payload = { 'name' : me['name'],
