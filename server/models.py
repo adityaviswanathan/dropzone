@@ -51,7 +51,9 @@ class User(Base):
         drops = Drop.query.all()
         nearby_drops = []
         for drop in drops:
-            if(ST_Distance(drop.location, db.engine.execute('ST_GeomFromText("POINT({0} {1})")'.format(lat, lng))) < 100):
+            result = db.engine.execute("SELECT ST_MakePoint({0}, {1});".format(lat, lng))
+            if ST_Distance(drop.location, result.first()[0]) < 100:
+                print "yay"
                 nearby_drops.append(drop)
         return nearby_drops
 
