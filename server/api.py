@@ -20,7 +20,7 @@ def create_user():
 	print 'THIS IS THE PAYLOAD\n'
 	print payload
 	user = User()
-	mapper.dict_to_drop(payload, user)
+	mapper.dict_to_user(payload, user)
 	user.save()
 	db.session.commit()
 	return jsonify(mapper.user_to_dict(user)) 
