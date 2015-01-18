@@ -25,8 +25,8 @@ def drop_to_dict(drop):
 def drops_to_dict(drops):		
 	result_drops = []	
 	for drop in drops:
-		for property in Drop.__table__.columns:
-			result_dict = {}
+		result_dict = {}
+		for property in Drop.__table__.columns:			
 			result_dict[str(property.key)] = getattr(drop, str(property.key))
 		result_drops.append(result_dict)
 	return { 'drops' : result_drops }
