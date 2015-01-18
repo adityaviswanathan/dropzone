@@ -9,7 +9,7 @@ import json
 def read_nearby_drops(user_id):
     user = User.query_by_user_id(user_id)
     print "Incoming data:", request.args
-    payload = json.loads(request.data)
+    # payload = json.loads(request.data)
     print "F1"
     if user is None:
         abort(404)
