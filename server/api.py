@@ -8,7 +8,7 @@ import json
 @app.route('/api/user/<int:user_id>/nearby', methods=['GET'])
 def read_nearby_drops(user_id):
     user = User.query_by_user_id(user_id)
-    print "Incoming data:", request.data
+    print "Incoming data:", request.args
     payload = json.loads(request.data)
     if user is None:
         abort(404)
@@ -19,6 +19,7 @@ def read_nearby_drops(user_id):
     if lng is None:
         abort(404)
     drops = User.get_nearby_drops(lat, lng)
+    print "Nearby drops: ", drops
     return jsonify(mapper.drops_to_dict(drops))
 
 @app.route('/api/user', methods=['POST'])
