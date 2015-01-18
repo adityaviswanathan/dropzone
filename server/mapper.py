@@ -37,7 +37,12 @@ def dict_to_drop(payload, drop):
 		# 	# pass
 		# 	drop.set_location(payload['lat'], payload['lng'])
 		if str(property.key) != 'id':
-			str(property.key) in payload and setattr(drop, str(property.key), payload[str(property.key)])
+			value = payload[str(property.key)]
+			if str(property.key) == 'lat' or str(property.key) == 'lng':
+				value = (float)payload[str(property.key)]
+			print 'VALUE:'
+			print value
+			str(property.key) in payload and setattr(drop, str(property.key), value)
 
 
 def pickup_to_dict(pickup):
