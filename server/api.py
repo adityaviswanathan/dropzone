@@ -8,32 +8,21 @@ import json
 @app.route('/api/user/<int:user_id>/nearby', methods=['GET'])
 def read_nearby_drops(user_id):
     user = User.query_by_user_id(user_id)
-    print "Incoming data:", request.args
-    # payload = json.loads(request.data)
-    print "F1"
+    payload = json.loads(request.data)
     if user is None:
         abort(404)
-    print "F2"
-    lat = float(request.args.get('lat'))
-    print "F3"
-    lng = float(request.args.get('lng'))
-    print "F4"
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
     if lat is None:
-        abort(404)
-    print "F5"
+        abort(404)    
     if lng is None:
         abort(404)
-    print "F6"
     drops = User.get_nearby_drops(lat, lng)
-    print "Nearby drops: ", drops
-    print "F7"
     return jsonify(mapper.drops_to_dict(drops))
 
 @app.route('/api/user', methods=['POST'])
 def create_user():
     payload = json.loads(request.data)
-    print 'THIS IS THE PAYLOAD\n'
-    print payload
     user = User.query_by_email(payload['email'])
     if user is None:
         user = User()
@@ -72,6 +61,8 @@ def delete_user(user_id):
 @app.route('/api/drop', methods=['POST'])
 def create_drop():
     payload = json.loads(request.data)
+    print 'THIS IS THE PAYLOAD\n'
+    print payload
     drop = Drop()
     mapper.dict_to_drop(payload, drop)
     drop.save()
