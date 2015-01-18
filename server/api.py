@@ -70,6 +70,11 @@ def create_drop():
         'data_payload' : request.form.getlist('data_payload')[0],
         'user_id' : (int)(request.form.getlist('user_id')[0])
     }
+    # for property in request.form.getlist:
+    #     payload[str(property.key)] = property.first()
+    # # payload = json.loads(request.form)
+    print 'THIS IS THE PAYLOAD\n'
+    print payload
     drop = Drop()
     mapper.dict_to_drop(payload, drop)
     drop.save()
