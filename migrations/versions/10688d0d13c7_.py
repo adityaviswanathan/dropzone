@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: 21ee9a522182
+Revision ID: 10688d0d13c7
 Revises: None
-Create Date: 2015-01-17 19:55:03.164539
+Create Date: 2015-01-18 01:50:11.700816
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '21ee9a522182'
+revision = '10688d0d13c7'
 down_revision = None
 
 from alembic import op
@@ -23,13 +23,14 @@ def upgrade():
     sa.Column('name', sa.Text(), nullable=True),
     sa.Column('email', sa.Text(), nullable=True),
     sa.Column('photo', sa.Text(), nullable=True),
+    sa.Column('balance', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('drops',
     sa.Column('id', sa.BigInteger(), nullable=False),
     sa.Column('created_on', sa.DateTime(), nullable=True),
     sa.Column('updated_on', sa.DateTime(), nullable=True),
-    sa.Column('data_type', sa.Enum('text', 'photo', 'video', name='data_types'), nullable=True),
+    sa.Column('data_type', sa.Enum('text', 'photo', 'video', 'payment', name='data_types'), nullable=True),
     sa.Column('data_payload', sa.Text(), nullable=True),
     sa.Column('numviews', sa.Integer(), nullable=True),
     sa.Column('restrictions', sa.Enum('self', 'friends', 'public', name='restriction_types'), nullable=True),
