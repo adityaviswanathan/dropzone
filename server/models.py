@@ -6,6 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2 import Geometry
 from geoalchemy2.functions import ST_Distance
 import datetime
+import math
 
 # Base = declarative_base()
 
@@ -51,7 +52,11 @@ class User(Base):
         drops = Drop.query.all()
         nearby_drops = []
         for drop in drops:
-            distance = db.engine.execute("SELECT ST_Distance(ST_GeomFromText('POINT({0} {1})'), ST_GeomFromText('POINT(-72.1260 42.45)'));".format(lat, lng, )).first()
+            dlat = lat - drop.lat
+            dlng = lng - drop.lng
+            distance = math.sqrt(dlat * dlat + dlng * dlng)
+            # distance = db.engine.execute("SELECT ST_Distance(ST_GeomFromText('POINT({0} {1})'), ST_GeomFromText('POINT({2} {3})'));".format(lat, lng, drop.lat, drop.lng)).first()
+            print distance
             if distance < 1.0:
                 print "yay"
                 nearby_drops.append(drop)
@@ -67,11 +72,12 @@ class Drop(Base):
     viewcap = db.Column(db.Integer)
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
     teaser = db.Column(db.Text)
-    location = db.Column(Geometry(geometry_type='POINT'))
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
 
-    def set_location(self, lat, lng):
-        result = db.engine.execute("SELECT ST_AsText(ST_MakePoint({0}, {1}));".format(lat, lng))
-        self.location = result.first()[0]
+    # def set_location(self, lat, lng):
+    #     result = db.engine.execute("SELECT ST_AsText(ST_MakePoint({0}, {1}));".format(lat, lng))
+    #     self.location = result.first()[0]
 
     @staticmethod
     def query_by_drop_id(drop_id):

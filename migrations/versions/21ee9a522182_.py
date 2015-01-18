@@ -1,18 +1,17 @@
 """empty message
 
-Revision ID: 2ec105f975ab
+Revision ID: 21ee9a522182
 Revises: None
-Create Date: 2015-01-17 15:28:03.499248
+Create Date: 2015-01-17 19:55:03.164539
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '2ec105f975ab'
+revision = '21ee9a522182'
 down_revision = None
 
 from alembic import op
 import sqlalchemy as sa
-import geoalchemy2
 
 
 def upgrade():
@@ -37,7 +36,8 @@ def upgrade():
     sa.Column('viewcap', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('teaser', sa.Text(), nullable=True),
-    sa.Column('location', geoalchemy2.types.Geometry(geometry_type='POINT'), nullable=True),
+    sa.Column('lat', sa.Float(), nullable=True),
+    sa.Column('lng', sa.Float(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

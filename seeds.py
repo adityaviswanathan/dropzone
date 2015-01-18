@@ -1,5 +1,5 @@
-from server.api import *
-from server.models import User
+# from server.api import *
+from server.models import *
 from server import mapper
 
 from geoalchemy2 import Geometry
@@ -39,12 +39,10 @@ data = {
 }
 d = Drop()
 mapper.dict_to_drop(data, d)
-# d.location = Geometry(5,6)
-print d.location
-# for r in result:
-	# print Geometry()
 
 d.save()
 db.session.commit()
 
 print mapper.drop_to_dict(d)
+
+print u1.get_nearby_drops(138.5, 37.5)

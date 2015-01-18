@@ -35,10 +35,10 @@ def drops_to_dict(drops):
 
 def dict_to_drop(payload, drop):
 	for property in Drop.__table__.columns:
-		if str(property.key) == 'location':
-			# pass
-			drop.set_location(payload['lat'], payload['lng'])
-		elif str(property.key) != 'id':
+		# if str(property.key) == 'location':
+		# 	# pass
+		# 	drop.set_location(payload['lat'], payload['lng'])
+		if str(property.key) != 'id':
 			str(property.key) in payload and setattr(drop, str(property.key), payload[str(property.key)])
 
 
