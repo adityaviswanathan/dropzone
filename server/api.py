@@ -61,11 +61,29 @@ def create_drop():
 	db.session.commit()
 	return jsonify(mapper.drop_to_dict(drop))
 
+def consume_drop(user_id, drop):
+	drop.numviews+=1
+	pickup = Pickup()
+	payload = {
+		'user_id' : user_id,
+		'drop_id' : drop.id
+	}
+	mapper.dict_to_pickup(payload, pickup)
+	pickup.save()
+	drop.save()
+
 @app.route('/api/drop/<int:drop_id>', methods=['GET'])
-def get_drop(drop_id):
+def read_drop(drop_id):
 	drop = Drop.query_by_drop_id(drop_id)
 	if drop is None:
 		abort(404)
+	if drop.viewcap == drop.numviews:
+		return {}
+	if request.args.get('user_id') is None:
+		abort(404)
+	user_id = request.args.get('user_id')
+	consume_drop(user_id, drop)	
+	db.session.commit()
 	return jsonify(mapper.drop_to_dict(drop))
 
 @app.route('/api/drop/<int:drop_id>', methods=['PUT'])
@@ -98,7 +116,7 @@ def create_pickup():
 	return jsonify(mapper.pickup_to_dict(pickup))	
 
 @app.route('/api/pickup/<int:pickup_id>', methods=['GET'])
-def get_pickup(pickup_id):
+def read_pickup(pickup_id):
 	pickup = Pickup.query_by_pickup_id(pickup_id)
 	if pickup is None:
 		abort(404)

@@ -53,7 +53,7 @@ class User(Base):
             # In meters
             distance = User.haversine(radians(lat), radians(lng), radians(drop.lat), radians(drop.lng))
             print distance
-            if distance < 500.0:
+            if distance < 500.0 and drop.numviews != drop.viewcap:
                 print "yay"
                 nearby_drops.append(drop)
             else:
@@ -74,9 +74,9 @@ class Drop(Base):
     __tablename__ = 'drops'
     data_type = db.Column(db.Enum('text','photo','video', name='data_types'))
     data_payload = db.Column(db.Text)
-    numviews = db.Column(db.Integer)
+    numviews = db.Column(db.Integer, default=0)
     restrictions = db.Column(db.Enum('self', 'friends', 'public', name='restriction_types'))
-    viewcap = db.Column(db.Integer)
+    viewcap = db.Column(db.Integer, default=-1)
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
     teaser = db.Column(db.Text)
     lat = db.Column(db.Float)
