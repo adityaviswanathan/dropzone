@@ -32,7 +32,7 @@ data = {
 	'viewcap': 25,
 	'user_id': 1,
 	'teaser': 'some teaser here',
-	'lat': 139,
+	'lat': 138.9,
 	'lng': 38
 }
 d = Drop()
