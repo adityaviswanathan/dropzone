@@ -11,8 +11,8 @@ def read_nearby_drops(user_id):
     payload = json.loads(request.data)
     if user is None:
         abort(404)
-    lat = (float)(request.args.get('lat'))
-    lng = (float)(request.args.get('lng'))
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
     if lat is None:
         abort(404)    
     if lng is None:
